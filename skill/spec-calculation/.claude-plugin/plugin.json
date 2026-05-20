@@ -6,12 +6,7 @@
     "name": "Mike Ye",
     "url": "https://exmxc.ai"
   },
-  "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Trailgenic/sPEG-framework"
-  },
-  "skills": [
-    "spec-calculation"
-  ]
+  "homepage": "https://github.com/Trailgenic/sPEG-framework",
+  "repository": "https://github.com/Trailgenic/sPEG-framework",
+  "license": "Apache-2.0"
 }
