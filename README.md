@@ -81,13 +81,13 @@ Each scored 1-5, summed and divided by 5 to produce a Scarcity Multiplier (range
 | 1.0-1.5 | Neutral to short |
 | >1.5 | Short signal |
 
-Full methodology: [`skill/spec-calculation/SKILL.md`](skill/spec-calculation/SKILL.md)
+Full methodology: [`SKILL.md`](skill/spec-calculation/skills/spec-calculation/SKILL.md)
 
 ---
 
 ## Worked Example: MU (Micron)
 
-A full canonical analysis is included at [`skill/spec-calculation/examples/MU-analysis.md`](skill/spec-calculation/examples/MU-analysis.md).
+A full canonical analysis is included at [`MU-analysis.md`](skill/spec-calculation/skills/spec-calculation/examples/MU-analysis.md).
 
 Key result: MU sPEG = 0.096, driven by a Scarcity Multiplier of 4.6 on its HBM exposure. The thesis is structured with falsifier hierarchies, scenario-weighted targets, and explicit downgrade triggers per scarcity factor.
 
@@ -114,6 +114,19 @@ If you use the sPEG framework in published work:
 > Ye, Mike. "sPEG: Scarcity-Adjusted PEG Framework for Equity Analysis." exmxc.ai, 2026. https://github.com/Trailgenic/sPEG-framework
 
 ---
+
+## References
+
+The canonical lexicon entry for this framework:
+- [sPEG (Scarcity-Adjusted PEG)](https://www.exmxc.ai/lexicon/speg-scarcity-adjusted-peg) — full methodology and definition
+
+Related frameworks on exmxc.ai:
+- [Four Forces of AI Power](https://www.exmxc.ai/lexicon/four-forces-of-ai-power) — broader structural framework
+- [sPEG Doctrine](https://www.exmxc.ai/leadership-doctrine/scarcity-adjusted-peg-speg-doctrine) — the leadership doctrine establishing sPEG
+- [AI Infrastructure Scarcity Index](https://www.exmxc.ai/speg-index/ai-infrastructure-scarcity-index) — applied sPEG index
+
+---
+
 
 ## Contributing
 
