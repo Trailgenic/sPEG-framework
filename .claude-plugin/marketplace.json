@@ -1,0 +1,11 @@
+{
+  "name": "sPEG-framework",
+  "owner": { "name": "Mike Ye", "url": "https://exmxc.ai" },
+  "plugins": [
+    {
+      "name": "spec-calculation",
+      "source": "./skill/spec-calculation",
+      "description": "sPEG — scarcity-adjusted PEG for structural-scarcity equity valuation."
+    }
+  ]
+}
