@@ -1,0 +1,17 @@
+{
+  "name": "spec-calculation",
+  "version": "1.0.0",
+  "description": "sPEG framework — scarcity-adjusted PEG ratio for structural-scarcity equity valuation. Developed by Mike Ye (exmxc.ai).",
+  "author": {
+    "name": "Mike Ye",
+    "url": "https://exmxc.ai"
+  },
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Trailgenic/sPEG-framework"
+  },
+  "skills": [
+    "spec-calculation"
+  ]
+}
