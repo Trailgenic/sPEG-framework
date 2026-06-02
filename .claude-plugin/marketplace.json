@@ -6,6 +6,11 @@
       "name": "spec-calculation",
       "source": "./skill/spec-calculation",
       "description": "sPEG — scarcity-adjusted PEG for structural-scarcity equity valuation."
+    },
+    {
+      "name": "convergence-signal-read",
+      "source": "./skill/convergence-signal-read",
+      "description": "Convergence signal read for the AI Infrastructure Component Thesis v2 exit-ladder framework."
     }
   ]
 }
