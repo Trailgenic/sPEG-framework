@@ -1,6 +1,6 @@
 {
   "name": "convergence-signal-read",
-  "version": "1.0.0",
+  "version": "1.3.0",
   "description": "Convergence signal read for the AI Infrastructure Component Thesis v2 framework. Pulls fresh data, compares against v2 thresholds, and returns structured per-signal readings, breach status, and exit ladder guidance. Developed by Mike Ye (exmxc.ai).",
   "author": {
     "name": "Mike Ye",

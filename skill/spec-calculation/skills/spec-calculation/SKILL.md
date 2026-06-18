@@ -71,6 +71,14 @@ Rules:
 3. **Cap Growth% at 50 for scoring purposes.** Any growth above ~50% is almost certainly cyclical-peak or early-ramp and not a durable 3-year rate; using it produces false precision at the extreme-low end of the sPEG scale. If you believe >50% is genuinely durable, state the case explicitly and show the uncapped number only as a sensitivity bound, not the headline.
 4. **Whatever you use, the Sensitivity section (required output) must show the result across the plausible growth range** so the reader sees how much the conviction depends on the growth assumption.
 
+### Macro / Discount-Rate Context (interpretive guardrail — no formula change)
+
+Discount rates do **not** enter the Scarcity Multiplier and do **not** change the sPEG formula. The Scarcity Multiplier remains a business-structure score: irreplaceability, replication timeline, supply concentration, throughput control, and demand durability.
+
+Macro and discount-rate changes enter sPEG only through the market valuation input — the **Forward P/E numerator** — and through the interpretation of how much multiple compression/expansion the market is already pricing. Do not add a sixth factor, haircut the Scarcity Multiplier, or put rates directly in the denominator.
+
+When the rate regime has changed materially, state it as context: higher discount rates can compress Forward P/E even when scarcity is intact; lower rates can inflate the numerator without improving scarcity. The framework should distinguish "scarcity thesis intact but numerator repriced" from "scarcity score deteriorated."
+
 ### The Five Scarcity Factors
 
 Each factor is scored 1-5. Sum the five scores and divide by 5 to get the Scarcity Multiplier (range: 1.0 to 5.0).
@@ -182,6 +190,7 @@ Required:
 - Forward P/E (consensus next-12-month EPS basis)
 - Forward EPS growth rate — **3-year forward CAGR, normalized per the Growth Input Discipline** (not the raw peak-year number for cyclicals)
 - Identification of the scarce input or capability driving the thesis
+- Macro / discount-rate context as of the analysis date, if materially changed (interpretive only; no formula change)
 
 First run the **Validity Gates**. If NTM EPS ≤ 0, forward growth ≤ 0, or the business is financial/commodity/distressed, stop and report the gate failure rather than forcing a number.
 
@@ -212,7 +221,7 @@ State whether the **conviction tier holds across the range** (robust) or flips t
 
 ### Step 5: Interpret
 
-Map the sPEG result to the threshold table. Identify which conviction tier the position lands in.
+Map the sPEG result to the threshold table. Identify which conviction tier the position lands in. Add a brief note if the current discount-rate regime is affecting the Forward P/E numerator; do not adjust the Scarcity Multiplier for rates.
 
 ### Step 6: Produce Falsifier Hierarchy
 
@@ -243,6 +252,7 @@ ALWAYS produce the analysis in this exact format:
 
 - Forward P/E: [Xx]
 - Forward EPS Growth (3-yr CAGR, normalized): [X%]  — note if normalized/capped from a raw consensus figure, and state the raw figure
+- Macro / discount-rate context: [benign / tightening / easing / shock / not material] — interpretive only; discount rate stays out of the Scarcity Multiplier
 - Data source: [web search / SEC / IR / MCP provider / user-supplied], as of [date]
 
 ## Scarcity Multiplier Scoring
@@ -288,7 +298,7 @@ sPEG = [Forward P/E] / ([Growth%] × [Scarcity Multiplier]) = **[X.XX]**
 
 ## Interpretation
 
-[Conviction tier and what the result implies]
+[Conviction tier and what the result implies. Include whether the Forward P/E numerator already reflects a materially changed discount-rate regime; do not treat rates as a Scarcity Multiplier input.]
 
 ## Falsifier Hierarchy
 
@@ -364,3 +374,4 @@ sPEG framework developed by Mike Ye (exmxc.ai). This skill is the canonical impl
 - v1.0: Initial five-factor framework, formula, thresholds, and output structure.
 - v1.1 (2026-05-29): Audit fixes. Added (1) Growth Input Discipline — 3-yr CAGR pin, cyclical normalization, Growth% ≤ 50 cap; (2) mandatory Sensitivity step + output table; (3) Validity Gates for non-positive EPS/growth, low SM, and out-of-scope businesses; (4) threshold calibration note restricting the table to SM ≥ 3 and noting sPEG→PEG at SM = 1; (5) documented factor collinearity (F1/F5, F3/F4) as a known limitation; (7) documented the multiplicative form as an explicit design choice; (8) noted ÷5 is cosmetic; (9) scope guard against forcing the framework onto non-scarce names; (10) de-canonicalized illustrative TSM/NVDA scores. Recreated the missing `examples/MU-analysis.md`.
 - v1.2 (2026-05-29): **BREAKING — factor restructure.** Replaced Factor 5 "Downstream Dependency" with **Demand Durability**, which adds an orthogonal temporal axis (how long demand persists, inversely related to bottleneck alleviation) and resolves the F1/F5 collinearity. This builds a cyclicality guard directly into the Scarcity Multiplier, complementing the v1.1 growth normalization. **All existing scores were computed under the old factor set and must be re-scored for comparability** — the criticality/dependency idea now lives inside durability, and cyclical names (which previously scored high on Downstream Dependency) will correctly lose points on Demand Durability. Re-scoring required for the tracked book (MU re-scored in the example; AVGO, VRT, and the rest pending). Treated as a living-document model update per framework owner's versioning practice.
+- v1.3 (2026-06-17): Added Macro / Discount-Rate Context interpretive guardrail. No formula change: discount rate remains outside the Scarcity Multiplier and enters only via the Forward P/E numerator. Added Step 5 interpretation note and required-output inputs-template note for rate-regime context.
