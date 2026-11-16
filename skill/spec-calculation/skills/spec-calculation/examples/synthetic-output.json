@@ -1,0 +1,68 @@
+{
+  "ratio": {
+    "duration_score": 4.0,
+    "forward_pe_ntm": 20.0,
+    "growth_cap_applied": false,
+    "interpretation_domain": "in-domain",
+    "normalized_growth_pct": 20.0,
+    "raw_cagr_pct": 19.999999999999996,
+    "scarcity_multiplier": 4.0,
+    "scoring_growth_pct": 20.0,
+    "speg": 0.25
+  },
+  "scenarios": [
+    {
+      "details": {
+        "forecast_years": 5,
+        "method": "explicit-eps-path",
+        "pv_forecast_cash": 13.809945571418675,
+        "pv_terminal": 22.69822052349694
+      },
+      "excess_cash_per_share": 0.0,
+      "fair_value_per_share": 36.508166094915616,
+      "name": "downside",
+      "operating_value_per_share": 36.508166094915616,
+      "tier": "material-overvaluation",
+      "upside": -0.6349183390508438,
+      "weight": 0.25
+    },
+    {
+      "details": {
+        "forecast_years": 10,
+        "method": "generated-fade",
+        "persistence_years": 5,
+        "pv_forecast_cash": 53.57348762997138,
+        "pv_terminal": 84.07676655322955
+      },
+      "excess_cash_per_share": 0.0,
+      "fair_value_per_share": 137.65025418320093,
+      "name": "base",
+      "operating_value_per_share": 137.65025418320093,
+      "tier": "undervaluation",
+      "upside": 0.3765025418320094,
+      "weight": 0.5
+    },
+    {
+      "details": {
+        "forecast_years": 11,
+        "method": "generated-fade",
+        "persistence_years": 6,
+        "pv_forecast_cash": 84.13789751219424,
+        "pv_terminal": 161.85985208339773
+      },
+      "excess_cash_per_share": 0.0,
+      "fair_value_per_share": 245.99774959559198,
+      "name": "upside",
+      "operating_value_per_share": 245.99774959559198,
+      "tier": "material-undervaluation",
+      "upside": 1.4599774959559197,
+      "weight": 0.25
+    }
+  ],
+  "version": "1.6.0",
+  "weighted": {
+    "fair_value_per_share": 139.45160601422737,
+    "tier": "undervaluation",
+    "upside": 0.3945160601422737
+  }
+}

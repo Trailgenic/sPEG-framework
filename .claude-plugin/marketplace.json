@@ -1,16 +1,15 @@
 {
   "name": "sPEG-framework",
-  "owner": { "name": "Mike Ye", "url": "https://exmxc.ai" },
+  "owner": {
+    "name": "Mike Ye",
+    "url": "https://exmxc.ai"
+  },
   "plugins": [
     {
       "name": "spec-calculation",
       "source": "./skill/spec-calculation",
-      "description": "sPEG — scarcity-adjusted PEG for structural-scarcity equity valuation."
-    },
-    {
-      "name": "convergence-signal-read",
-      "source": "./skill/convergence-signal-read",
-      "description": "Convergence signal read for the AI Infrastructure Component Thesis v2 exit-ladder framework."
+      "description": "sPEG v1.7: scarcity-adjusted PEG valuation and sPEG Index Scarcity Durability assessment.",
+      "version": "1.7.0"
     }
   ]
 }

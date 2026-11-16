@@ -1,135 +1,112 @@
 # sPEG Framework
 
-A scarcity-adjusted PEG framework for equity analysis. Open-source skill for Claude Code, Cowork, and the broader Claude ecosystem.
+A scarcity-adjusted PEG framework for equity analysis, published as an open-source skill. Current version: **v1.7**.
 
-**Developed by [Mike Ye](https://exmxc.ai)** — former VP of Strategic Planning & Acquisitions at Penske Media Corporation (Rolling Stone, Billboard, SXSW, Variety, Robb Report), now operating a portfolio of AI-native ventures.
+**Developed by [Mike Ye](https://www.exmxc.ai/about-us/mike-ye)**, an M&A and corporate development executive and the founder of [exmxc](https://www.exmxc.ai), the research institution building information assets on the AI economy through AI Lattice and Strategic Signal.
 
 ---
 
 ## What is sPEG?
-sPEG = Forward P/E ÷ (Growth% × Scarcity Multiplier)
 
-Traditional PEG (Price/Earnings to Growth) assumes commodity-like supply elasticity. It breaks down when a company's growth is bounded by a structurally scarce input the market has not yet recognized as scarce.
+```text
+sPEG = (current price / NTM diluted EPS) / (normalized 3-year EPS CAGR% x Scarcity Multiplier)
+Scarcity Multiplier = (F1 + F2 + F3 + F4 + F5) / 5
+```
 
-**sPEG** corrects this by introducing the **Scarcity Multiplier** — a five-factor score (Irreplaceability, Replication Timeline, Supply Concentration, Throughput Control, Downstream Dependency) that quantifies how much of a company's growth is gated by structural scarcity.
+Traditional PEG assumes commodity-like supply. It breaks down when a company's growth is bounded by a structurally scarce input. sPEG adds a **Scarcity Multiplier**, a five-factor score for one identified scarce asset:
 
-The result: a single ratio that exposes mispricings traditional PEG misses, particularly in AI infrastructure, semiconductors, and capacity-constrained industries.
+1. **Irreplaceability:** can the asset be substituted?
+2. **Replication time:** how long would a credible replica take?
+3. **Supply concentration:** how many viable suppliers are there?
+4. **Throughput tightness and rent capture:** is supply tight now, and does the holder keep the economics?
+5. **Demand durability:** how long does demand for the asset persist?
+
+Each factor is scored 1 to 5 against the rubric in [`references/scoring-rubric.md`](skill/spec-calculation/skills/spec-calculation/references/scoring-rubric.md).
+
+**sPEG is a diagnostic, not a price target.** The factor scores are ordinal evidence. Fair value comes from explicit downside, base and upside cash-flow scenarios, calculated by the included deterministic calculator. The resulting tiers describe the distance between price and modeled value only. They are not buy or sell signals.
+
+## Two modes
+
+- **Mode A: sPEG valuation.** The five-factor Scarcity Multiplier, the headline sPEG, and scenario fair value.
+- **Mode B: sPEG Index assessment.** The Scarcity Durability method used by the [exmxc sPEG Index](https://www.exmxc.ai/speg-index) since September 2026. It makes five anchored judgments (Constraint, Substitution resistance, Economic capture, Persistence, Cost of defense) and applies independent admission gates. The Scarcity Durability Score is never used as a multiplier. Method: [sPEG Index methodology](https://www.exmxc.ai/speg-index/methodology).
+
+The two modes are never mixed.
 
 ---
 
-## Why This Exists
+## Contents
 
-In the AI infrastructure era, the most valuable companies often *look* expensive on traditional multiples (NVDA) or *look* cheap on traditional multiples (MU) — and both readings are wrong because neither incorporates the structural scarcity of the inputs they control or depend on.
+```text
+skill/spec-calculation/skills/spec-calculation/
+  SKILL.md                      workflow, invariants, validity gates, both modes
+  references/scoring-rubric.md  F1-F5 anchors and cross-checks
+  references/methodology.md     sPEG and scenario valuation
+  references/output-template.md report structure
+  references/v1.6-migration.md  what changed from earlier versions
+  scripts/speg_calculator.py    deterministic arithmetic
+  scripts/test_speg_calculator.py
+  examples/synthetic-input.json, synthetic-output.json
+```
 
-sPEG was developed to surface these mispricings systematically. The MU thesis included in this repo demonstrates the framework producing a sPEG of 0.096 — well below the 0.1 threshold that signals "scarcity premium completely unpriced."
+Run the calculator and its tests:
 
-The framework is published as a Claude skill so any analyst, PM, or independent investor can apply it consistently across positions and time, with full methodology transparency.
+```bash
+cd skill/spec-calculation/skills/spec-calculation
+python scripts/speg_calculator.py examples/synthetic-input.json
+python -m pytest scripts/test_speg_calculator.py
+```
+
+The example uses synthetic inputs. It is not an analysis of any real company.
 
 ---
 
 ## Installation
 
-### Claude Code
+The skill uses the open Agent Skills format (a `SKILL.md` with reference files and scripts).
+
+As a plugin marketplace:
 
 ```bash
 claude plugin marketplace add Trailgenic/sPEG-framework
 claude plugin install spec-calculation@sPEG-framework
 ```
 
-### Cowork
+Manually: copy `skill/spec-calculation/skills/spec-calculation/` into your skills folder.
 
-In Cowork, open **Settings → Plugins → Add plugin** and paste:
-https://github.com/Trailgenic/sPEG-framework
-
-### Manual
-
-Drop the `skill/spec-calculation/` directory into your skills folder (`~/.claude/skills/` or your user skills directory).
+Example requests: "Run a sPEG analysis on TSMC", "Score Micron's HBM exposure with the Scarcity Multiplier", "Does Synopsys pass the sPEG Index admission gates?"
 
 ---
 
-## Usage
+## Versions
 
-Once installed, the skill fires automatically when you mention sPEG, scarcity scoring, or ask Claude to evaluate a position for structural mispricing. You can also invoke it explicitly:
-"Run a sPEG analysis on TSMC"
-"Score Micron with the Scarcity Multiplier framework"
-"Is ASML mispriced under sPEG?"
+- **v1.7 (2026-11-16):** added Mode B, the sPEG Index Scarcity Durability assessment. Mode A is unchanged from v1.6.
+- **v1.6:** breaking change. Fair value now comes from cash-flow scenarios, with no score-to-price multiplier. Valuation tiers no longer use action language. See [`v1.6-migration.md`](skill/spec-calculation/skills/spec-calculation/references/v1.6-migration.md).
+- **v1.2:** replaced Downstream Dependency with Demand Durability as the fifth factor.
+- **v1.0:** initial five-factor framework.
 
-Claude will produce a structured analysis following the canonical template (see `skill/spec-calculation/SKILL.md` for the full output format).
-
----
-
-## The Framework
-
-### The Five Scarcity Factors
-
-Each scored 1-5, summed and divided by 5 to produce a Scarcity Multiplier (range 1.0-5.0):
-
-1. **Irreplaceability** — Can the company's product be substituted within 3 years?
-2. **Replication Timeline** — How long for a competitor to credibly replicate?
-3. **Supply Concentration** — Market structure on the supply side?
-4. **Throughput Control** — Contract regime, fulfillment rates, capex lead times
-5. **Downstream Dependency** — How critical is this input to downstream value creation?
-
-### sPEG Thresholds
-
-| sPEG | Signal |
-|------|--------|
-| <0.1 | Scarcity premium completely unpriced |
-| 0.1-0.3 | High-conviction long |
-| 0.3-0.7 | Long signal |
-| 0.7-1.0 | Neutral to long |
-| 1.0-1.5 | Neutral to short |
-| >1.5 | Short signal |
-
-Full methodology: [`SKILL.md`](skill/spec-calculation/skills/spec-calculation/SKILL.md)
-
----
-
-## Worked Example: MU (Micron)
-
-A full canonical analysis is included at [`MU-analysis.md`](skill/spec-calculation/skills/spec-calculation/examples/MU-analysis.md).
-
-Key result: MU sPEG = 0.096, driven by a Scarcity Multiplier of 4.6 on its HBM exposure. The thesis is structured with falsifier hierarchies, scenario-weighted targets, and explicit downgrade triggers per scarcity factor.
-
-This is a real position with full transparency — published as a worked example, not as investment advice.
+Scores computed under different versions are not comparable without re-scoring.
 
 ---
 
 ## Disclaimer
 
-This framework is published for analytical use. It does **not** constitute investment, legal, tax, or accounting advice. The MU example reflects the author's personal analysis on a personal position and should not be interpreted as a recommendation. All outputs require independent verification by qualified financial professionals before being used in decision-making.
-
----
+This framework is published for analytical use. It is not investment, legal, tax or accounting advice. sPEG has not been validated on realized returns. All outputs require independent verification before they are used in any decision.
 
 ## License
 
-[Apache License 2.0](LICENSE) — free for commercial and personal use; attribution to Mike Ye (exmxc.ai) requested but not required.
-
----
+[Apache License 2.0](LICENSE). Attribution to Mike Ye (exmxc.ai) is requested but not required.
 
 ## Citation
 
-If you use the sPEG framework in published work:
-
 > Ye, Mike. "sPEG: Scarcity-Adjusted PEG Framework for Equity Analysis." exmxc.ai, 2026. https://github.com/Trailgenic/sPEG-framework
-
----
 
 ## References
 
-The canonical lexicon entry for this framework:
-- [sPEG (Scarcity-Adjusted PEG)](https://www.exmxc.ai/lexicon/speg-scarcity-adjusted-peg) — full methodology and definition
-
-Related frameworks on exmxc.ai:
-- [Four Forces of AI Power](https://www.exmxc.ai/lexicon/four-forces-of-ai-power) — broader structural framework
-- [sPEG Doctrine](https://www.exmxc.ai/leadership-doctrine/scarcity-adjusted-peg-speg-doctrine) — the leadership doctrine establishing sPEG
-- [AI Infrastructure Scarcity Index](https://www.exmxc.ai/speg-index/ai-infrastructure-scarcity-index) — applied sPEG index
-
----
-
+- [sPEG (Scarcity-Adjusted PEG)](https://www.exmxc.ai/lexicon/speg-scarcity-adjusted-peg): definition
+- [sPEG Index](https://www.exmxc.ai/speg-index) and [methodology](https://www.exmxc.ai/speg-index/methodology)
+- [sPEG Doctrine](https://www.exmxc.ai/leadership-doctrine/scarcity-adjusted-peg-speg-doctrine)
+- [Four Forces of AI Power](https://www.exmxc.ai/lexicon/four-forces-of-ai-power): the broader framework sPEG applies
 
 ## Contributing
 
-Framework refinements and additional worked examples welcome via pull request. The core methodology (five factors, 1-5 scale, sPEG formula) is locked at v1.0 — major framework evolution will be versioned as v2.0 with explicit migration notes.
-
-For substantive framework dialogue, contact via [exmxc.ai](https://exmxc.ai).
+Refinements and additional examples are welcome by pull request. Breaking methodology changes are versioned with migration notes.
