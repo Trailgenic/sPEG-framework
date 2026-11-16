@@ -1,0 +1,41 @@
+{
+  "price": 100.0,
+  "ntm_eps": 5.0,
+  "fy3_eps": 8.64,
+  "normalized_growth_pct": 20.0,
+  "factors": [4, 4, 4, 4, 4],
+  "scenarios": [
+    {
+      "name": "downside",
+      "eps_path": [5.0, 5.25, 5.35, 5.4, 5.5],
+      "cash_conversion_path": [0.7, 0.72, 0.75, 0.78, 0.8],
+      "cash_conversion_terminal": 0.82,
+      "terminal_growth_pct": 2.0,
+      "required_return_pct": 13.0,
+      "weight": 0.25
+    },
+    {
+      "name": "base",
+      "eps_base": 5.0,
+      "growth_pct": 20.0,
+      "duration_score": 4.0,
+      "cash_conversion_start": 0.8,
+      "cash_conversion_terminal": 0.9,
+      "terminal_growth_pct": 3.0,
+      "required_return_pct": 10.0,
+      "weight": 0.5
+    },
+    {
+      "name": "upside",
+      "eps_base": 5.0,
+      "growth_pct": 25.0,
+      "duration_score": 5.0,
+      "cash_conversion_start": 0.85,
+      "cash_conversion_terminal": 0.92,
+      "terminal_growth_pct": 3.0,
+      "required_return_pct": 9.0,
+      "weight": 0.25
+    }
+  ]
+}
+
